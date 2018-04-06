@@ -1,6 +1,6 @@
 {
   "name": "ember-helper-helper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This add-on provides a `helper` helper that looks up the helper by name and returns a function with partial application.",
   "keywords": [
     "ember-addon"
