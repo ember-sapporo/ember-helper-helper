@@ -1,7 +1,7 @@
 ember-helper-helper
 ==============================================================================
 
-[Short description of the addon.]
+This add-on provides a `helper` helper that looks up the helper by name and returns a function with partial application (commonly called "currying"). It is useful when you want to use a helper as an action.
 
 Installation
 ------------------------------------------------------------------------------
@@ -14,15 +14,18 @@ ember install ember-helper-helper
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
-
+``` hbs
+<button value='42' onclick={{pipe-action (action (helper 'store/find-record' 'user') value='target.value') (action (mut user))}}>
+  Find and set user 42
+</button>
+```
 
 Contributing
 ------------------------------------------------------------------------------
 
 ### Installation
 
-* `git clone <repository-url>`
+* `git clone https://github.com/ember-sapporo/ember-helper-helper.git`
 * `cd ember-helper-helper`
 * `yarn install`
 
