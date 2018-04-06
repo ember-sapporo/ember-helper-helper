@@ -20,6 +20,11 @@ Usage
 </button>
 ```
 
+See Also
+------------------------------------------------------------------------------
+
+- [ember-store-helpers](https://github.com/ember-sapporo/ember-store-helpers)
+
 Contributing
 ------------------------------------------------------------------------------
 
