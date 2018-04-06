@@ -6,7 +6,7 @@
     "ember-addon"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Keita Urashima <ursm@ursm.jp>",
   "directories": {
     "doc": "doc",
     "test": "tests"
