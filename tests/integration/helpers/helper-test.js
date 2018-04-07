@@ -64,12 +64,26 @@ module('Integration | Helper | helper', function(hooks) {
   });
 
   test('when the helper name is null or undefined, no error occurs', async function(assert) {
-    assert.expect(0);
+    this.owner.register('helper:hi', helper(function() {
+      document.getElementById('output').textContent = 'hi!';
+    }));
 
     await render(hbs`
-      <button onclick={{action (helper null)}}>Null</button>
+      <button onclick={{action (helper helperName)}}>Open Sesame</button>
+
+      <div id='output'></div>
     `);
 
+    this.set('helperName', null);
     await click('button');
+    assert.equal(this.element.querySelector('#output').textContent.trim(), '');
+
+    this.set('helperName', undefined);
+    await click('button');
+    assert.equal(this.element.querySelector('#output').textContent.trim(), '');
+
+    this.set('helperName', 'hi');
+    await click('button');
+    assert.equal(this.element.querySelector('#output').textContent.trim(), 'hi!');
   });
 });
