@@ -62,4 +62,14 @@ module('Integration | Helper | helper', function(hooks) {
 
     assert.equal(this.element.querySelector('#output').textContent.trim(), '1 + 2 = 3');
   });
+
+  test('when the helper name is null or undefined, no error occurs', async function(assert) {
+    assert.expect(0);
+
+    await render(hbs`
+      <button onclick={{action (helper null)}}>Null</button>
+    `);
+
+    await click('button');
+  });
 });
