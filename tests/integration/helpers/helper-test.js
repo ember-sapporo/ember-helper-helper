@@ -7,13 +7,13 @@ import Helper, { helper } from '@ember/component/helper';
 module('Integration | Helper | helper', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it looks up a simple helper by name', async function(assert) {
+  test('simple helper', async function(assert) {
     this.owner.register('helper:hello', helper(function([to]) {
       document.getElementById('output').textContent = `hello, simple ${to}!`;
     }));
 
     await render(hbs`
-      <button {{action (helper 'hello' 'world')}}>Hello</button>
+      <button onclick={{action (helper 'hello' 'world')}}>Hello</button>
 
       <div id='output'></div>
     `);
@@ -25,7 +25,7 @@ module('Integration | Helper | helper', function(hooks) {
     assert.equal(this.element.querySelector('#output').textContent.trim(), 'hello, simple world!');
   });
 
-  test('it looks up a class-based helper by name', async function(assert) {
+  test('class-based helper', async function(assert) {
     this.owner.register('helper:hello', Helper.extend({
       compute([to]) {
         document.getElementById('output').textContent = `hello, class ${to}!`;
@@ -33,7 +33,7 @@ module('Integration | Helper | helper', function(hooks) {
     }));
 
     await render(hbs`
-      <button {{action (helper 'hello' 'world')}}>Hello</button>
+      <button onclick={{action (helper 'hello' 'world')}}>Hello</button>
 
       <div id='output'></div>
     `);
@@ -43,5 +43,23 @@ module('Integration | Helper | helper', function(hooks) {
     await click('button');
 
     assert.equal(this.element.querySelector('#output').textContent.trim(), 'hello, class world!');
+  });
+
+  test('partial application', async function(assert) {
+    this.owner.register('helper:plus', helper(function([x, y]) {
+      document.getElementById('output').textContent = `${x} + ${y} = ${x + Number(y)}`;
+    }));
+
+    await render(hbs`
+      <button onclick={{action (helper 'plus' 1) value='target.value'}} value='2'>Plus</button>
+
+      <div id='output'></div>
+    `);
+
+    assert.equal(this.element.querySelector('#output').textContent.trim(), '');
+
+    await click('button');
+
+    assert.equal(this.element.querySelector('#output').textContent.trim(), '1 + 2 = 3');
   });
 });
