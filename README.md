@@ -20,10 +20,10 @@ Usage
 </button>
 ```
 
-See Also
-------------------------------------------------------------------------------
+### See Also
 
-- [ember-store-helpers](https://github.com/ember-sapporo/ember-store-helpers)
+- [DockYard/ember-composable-helpers](https://github.com/DockYard/ember-composable-helpers) (`pipe-action`)
+- [ember-sapporo/ember-store-helpers](https://github.com/ember-sapporo/ember-store-helpers) (`store/find-record`)
 
 Contributing
 ------------------------------------------------------------------------------
