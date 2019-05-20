@@ -86,4 +86,44 @@ module('Integration | Helper | helper', function(hooks) {
     await click('button');
     assert.equal(this.element.querySelector('#output').textContent.trim(), 'hi!');
   });
+
+  test('helper with options', async function(assert) {
+    this.owner.register('helper:options', Helper.extend({
+      compute(_, { config }) {
+        document.getElementById('output').textContent = config;
+      }
+    }));
+
+    await render(hbs`
+      <button onclick={{action (helper 'options' config='foo')}}>Hello</button>
+
+      <div id='output'></div>
+    `);
+
+    assert.equal(this.element.querySelector('#output').textContent.trim(), '');
+
+    await click('button');
+
+    assert.equal(this.element.querySelector('#output').textContent.trim(), 'foo');
+  });
+
+  test('helper with options and partial application', async function(assert) {
+    this.owner.register('helper:options', Helper.extend({
+      compute([a, b], { config }) {
+        document.getElementById('output').textContent = `${a} ${b} ${config}`;
+      }
+    }));
+
+    await render(hbs`
+      <button onclick={{action (helper 'options' 'foo' config='wow') value='target.value'}} value='bar'>Options!</button>
+
+      <div id='output'></div>
+    `);
+
+    assert.equal(this.element.querySelector('#output').textContent.trim(), '');
+
+    await click('button');
+
+    assert.equal(this.element.querySelector('#output').textContent.trim(), 'foo bar wow');
+  });
 });
