@@ -3,11 +3,11 @@ import { getOwner } from '@ember/application';
 import { isNone } from '@ember/utils';
 
 export default Helper.extend({
-  compute([helperName, ...headArgs]) {
+  compute([helperName, ...headArgs], hash) {
     if (isNone(helperName)) { return () => {}; }
 
     const helper = getOwner(this).factoryFor(`helper:${helperName}`).create();
 
-    return (...tailArgs) => helper.compute([...headArgs, ...tailArgs]);
+    return (...tailArgs) => helper.compute([...headArgs, ...tailArgs], hash);
   }
 });
